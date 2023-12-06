@@ -10,6 +10,7 @@ use App\Models\MateriaModel as Materia;
 use App\Models\User;
 use App\Models\Calificacion_Profesor_AlumnoModel as CPA;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class alumnoController extends Controller
 {
