@@ -9,6 +9,7 @@ use App\Http\Controllers\Sistema_Calificaciones\LoginController;
 use App\Http\Controllers\Sistema_Calificaciones\ProfesorController;
 use App\Http\Controllers\Sistema_Calificaciones\GrupoController;
 use App\Http\Controllers\Sistema_Calificaciones\MateriaController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,7 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Route::get('/alumno/saludo', [AlumnoController::class, 'InsertarAlumno']);
 Route::post('/login',[LoginController::class, 'Login']);
-Route::get('/alumno/{id?}/',[AlumnoController::class, 'VerAlumno'])->where('id', '[0-9]+')->middleware('auth:sanctum');
+Route::get('/alumno/',[AlumnoController::class, 'VerAlumno'])->middleware('auth:sanctum');
 Route::get('/grupo/{user?}/',[GrupoController::class, 'VerGrupo'])->where('user', '[0-9]+')->middleware('auth:sanctum');
+Route::get('/materia/{id?}/',[MateriaController::class, 'VerMateria'])->where('id', '[0-9]+')->middleware('auth:sanctum');
+Route::get('/materia/{id?}/',[MateriaController::class, 'VerMateria'])->where('id', '[0-9]+')->middleware('auth:sanctum');
+Route::get('/materia/{id?}/',[MateriaController::class, 'VerMateria'])->where('id', '[0-9]+')->middleware('auth:sanctum');
 Route::get('/materia/{id?}/',[MateriaController::class, 'VerMateria'])->where('id', '[0-9]+')->middleware('auth:sanctum');
 

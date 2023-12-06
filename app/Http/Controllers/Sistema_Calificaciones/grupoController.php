@@ -11,9 +11,12 @@ use App\Models\GrupoModel as Grupo;
 
 class grupoController extends Controller
 {
-    public function VerGrupo(int $user){
+    public function VerGrupo(){
+        $validacion=Validator::make($request->all(),[
+            'idUser' => 'required|Integer'
+        ]);
 
-        $idGrupo = GU::where("fk_users", $user)->first();
+        $idGrupo = GU::where("fk_users", $request->idUser)->first();
         $grupo = Grupo::find($idGrupo);
         if($grupo){
             return response()->json([

@@ -13,28 +13,36 @@ use Illuminate\Support\Facades\DB;
 
 class alumnoController extends Controller
 {
-    public function VerAlumno(int $id = 0){
-        if($id == 0){
-            $Alumno = DB::table('users')
-            ->select('users.*')
-            ->where('rol_id', '2')
-            ->get();
+    public function VerAlumno(){
+        $validacion=Validator::make($request->all(),[
+            'idAlumno' => 'required|Integer'
+        ]);
 
-            return response()->json([
-                "Data"=>$Alumno
-            ],200);
+        if(!$validacion->fails()){
+            if($request->idAlumno == 0){
+                $Alumno = DB::table('users')
+                ->select('users.*')
+                ->where('rol_id', '2')
+                ->get();
+    
+                return response()->json([
+                    "Data"=>$Alumno
+                ],200);
+            }
+    
+            $alumno = User::find($request->idAlumno);
+    
+            if($alumno){
+                return response()->json([
+                    "Data"=> $alumno
+                ],200);     
+            }
+            
         }
-
-        $alumno = User::find($id);
-
-        if($alumno){
-            return response()->json([
-                "Data"=> $alumno
-            ],200);     
-        }
+        
 
         return response()->json([
-            "Mensaje"=> "algo salio mal",
+            "error"=> $validator->errors(),
         ],400);  
     }
 
