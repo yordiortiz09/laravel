@@ -32,13 +32,13 @@ class alumnoController extends Controller
                 "Data"=> $alumno
             ],200);     
         }
-        
+
         return response()->json([
             "Mensaje"=> "algo salio mal",
         ],400);  
     }
 
-    public function InsertarAlumno(){
+    /* public function InsertarAlumno(){
         $validacion=Validator::make($request->all(),[
             'nombre' => 'required',
             'apellidoPaterno' => 'required',
@@ -82,5 +82,5 @@ class alumnoController extends Controller
         return response()->json([
             "Saludo"=> "hola mundo",
         ],200);
-    }
+    } */
 }

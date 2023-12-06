@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 
 class profesorController extends Controller
 {
-    public function VerPofesor(){
+    /* public function VerPofesor(){
         return response()->json([
             "Saludo"=> "hola mundo",
         ],200);
     }
-
-    public function InsertarProfesor(){
+     public function InsertarProfesor(){
         return response()->json([
             "Saludo"=> "hola mundo",
         ],200);
@@ -29,5 +28,5 @@ class profesorController extends Controller
         return response()->json([
             "Saludo"=> "hola mundo",
         ],200);
-    }
+    } */
 }
