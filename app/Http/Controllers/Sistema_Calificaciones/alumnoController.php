@@ -9,16 +9,33 @@ use App\Models\CalificacionModel as Calificacion;
 use App\Models\MateriaModel as Materia;
 use App\Models\User;
 use App\Models\Calificacion_Profesor_AlumnoModel as CPA;
+use Illuminate\Support\Facades\DB;
 
 class alumnoController extends Controller
 {
     public function VerAlumno(int $id = 0){
-       if($id == 0){
-       
+        if($id == 0){
+            $Alumno = DB::table('users')
+            ->select('users.*')
+            ->where('rol_id', '2')
+            ->get();
+
+            return response()->json([
+                "Data"=>$Alumno
+            ],200);
         }
+
+        $alumno = User::find($id);
+
+        if($alumno){
+            return response()->json([
+                "Data"=> $alumno
+            ],200);     
+        }
+        
         return response()->json([
-            "Saludo"=> "hola mundo",
-        ],200);   
+            "Mensaje"=> "algo salio mal",
+        ],400);  
     }
 
     public function InsertarAlumno(){

@@ -25,7 +25,9 @@ class UserSeeder extends Seeder
             'rol_id' => 1,
             'cedula' => '6192430847',
             'password' => Hash::make('12345678')
-        ],[
+        ]);
+
+        User::create([
             'nombre' => Str::random(6),
             'apellidoPaterno' => Str::random(10),
             'apellidoMaterno' => Str::random(10),

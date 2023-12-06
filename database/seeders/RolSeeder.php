@@ -13,9 +13,10 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
-        ProfesorModel::create([
+        RolModel::create([
             'nombre' => "Profesor"
-        ],[
+        ]);
+        RolModel::create([
             'nombre' => "Alumno"
         ]);
     }
