@@ -8,10 +8,11 @@ use App\Models\GrupoUsersModel as GU;
 use App\Models\CalificacionModel as Calificacion;
 use Illuminate\Support\Facades\DB;
 use App\Models\GrupoModel as Grupo;
+use Illuminate\Support\Facades\Validator;
 
 class grupoController extends Controller
 {
-    public function VerGrupo(){
+    public function VerGrupo(Request $request){
         $validacion=Validator::make($request->all(),[
             'idUser' => 'required|Integer'
         ]);

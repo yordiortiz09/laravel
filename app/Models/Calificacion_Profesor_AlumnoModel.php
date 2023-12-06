@@ -13,5 +13,11 @@ class Calificacion_Profesor_AlumnoModel extends Model
      *
      * @var string
      */
+    protected $fillable = [
+        'fk_calificacion',
+        'fk_materia',
+        'fk_profesor',
+        'fk_alumno'   
+    ];
     protected $table = 'calificacion_profesor_alumno';
 }

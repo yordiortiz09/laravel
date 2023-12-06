@@ -8,7 +8,7 @@ use App\Models\MateriaModel as Materia;
 
 class materiaController extends Controller
 {
-    public function VerMateria(int $id = 0){
+    public function VerMateria(Request $request, int $id = 0){
         if($id == 0){
             $Materias = Materia::get();
 

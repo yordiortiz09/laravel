@@ -14,5 +14,10 @@ class CalificacionModel extends Model
      *
      * @var string
      */
+    protected $fillable = [
+        'calificacion_1',
+        'calificacion_2',
+        'calificacion_3'   
+    ];
     protected $table = 'calificacion';
 }
