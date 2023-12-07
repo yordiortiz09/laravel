@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class alumnoController extends Controller
 {
-    public function VerAlumno(){
+    public function VerAlumno(Request $request){
         $validacion=Validator::make($request->all(),[
             'idAlumno' => 'required|Integer'
         ]);
