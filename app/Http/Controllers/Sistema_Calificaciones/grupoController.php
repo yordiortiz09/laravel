@@ -11,28 +11,18 @@ use App\Models\GrupoModel as Grupo;
 
 class grupoController extends Controller
 {
-    public function VerGrupo(){
-        $validacion=Validator::make($request->all(),[
-            'idUser' => 'required|Integer'
-        ]);
-
-        $idGrupo = GU::where("fk_users", $request->idUser)->first();
+    public function VerGrupo($idUser){
+        $user = DB::table('grupo_users')
+        ->select('grupo_users.*')
+        ->where('fk_users', $idUser)
+        ->get();
+        $idGrupo = GU::where("fk_users", $idUser)->first();
         $grupo = Grupo::find($idGrupo);
         if($grupo){
             return response()->json([
-                "Data"=> $grupo
+                "data"=> $grupo
             ],200);     
         }
-        /* if($user == 0){
-            $Alumno = DB::table('users')
-            ->select('users.*')
-            ->where('rol_id', '2')
-            ->get();
-
-            return response()->json([
-                "Data"=>$Alumno
-            ],200);
-        }*/
         return response()->json([
             "Mensaje"=> "algo salio mal",
         ],400);  

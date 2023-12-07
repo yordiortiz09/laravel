@@ -8,22 +8,14 @@ use App\Models\MateriaModel as Materia;
 
 class materiaController extends Controller
 {
-    public function VerMateria(int $id = 0){
+    public function VerMateria($id = 0){
         if($id == 0){
-            $Materias = Materia::get();
-
+            $materia = Materia::all();
             return response()->json([
-                "Data"=>$Materias
-            ],200);
-        }
-
-        $materia = Materia::find($id);
-
-        if($materia){
-            return response()->json([
-                "Data"=> $materia
+                "data"=> $materia
             ],200);     
         }
+        
 
         return response()->json([
             "Mensaje"=> "algo salio mal",

@@ -11,65 +11,54 @@ use Illuminate\Support\Facades\DB;
 
 class calificacionController extends Controller
 {
-    public function VerCalificacion(){
-        $validacion=Validator::make($request->all(),[
-            'idMateria' =>'Required|Integer',
-            'idProfesor' =>'Required|Integer',
-            'idAlumno' =>'Required|Integer'
-        ]);
-        
-        if(!$validacion->fails()){
-            $cal = CAP::where('fk_materia', "=", $request->idMateria)
-            ->where('fk_profesor', "=", $request->idProfesor)
-            ->where('fk_alumno', "=", $request->idAlumno)
-            ->first();
-
-            if(!$cal)
-                return response()->json([
-                    "Mensaje"=> "No hay calificaciones",
-                ],200);
-
-            $calificacion = Calificacion::find($cal->id);
-            
-            return response()->json([
-                "Data"=> $calificacion,
-            ],200);
-        }
-
+    public function VerCalificaciones(){
+        $calificaciones = DB::table('calificacion')
+        ->join('calificacion_profesor_alumno', 'calificacion.id', '=', 'calificacion_profesor_alumno.fk_calificacion')
+        ->select('calificacion.*', 'calificacion_profesor_alumno.fk_materia', 'calificacion_profesor_alumno.fk_profesor', 'calificacion_profesor_alumno.fk_alumno')
+        ->get();
         return response()->json([
-            "errors"=> $validacion->errors(),
-        ],400);
+            "data"=> $calificaciones
+        ],200);
+
     }
 
-    public function InsertarCalificacion(){
-        $validacion=Validator::make($request->all(),[
-            'calificacion_1' =>'Required|Integer',
-            'idMateria' =>'Required|Integer',
-            'idProfesor' =>'Required|Integer',
-            'idAlumno' =>'Required|Integer'
+    
+    public function InsertarCalificaciones(Request $request){
+        $validacion = Validator::make($request->all(), [
+            'calificacion_1' => 'required|integer',
+            'calificacion_2' => 'required|integer',
+            'calificacion_3' => 'required|integer',
+            'fk_materia' => 'required|integer',
+            'fk_profesor' => 'required|integer',
+            'fk_alumno' => 'required|integer',
         ]);
-        
-        if(!$validacion->fails()){
-            $calificacion = Calificacion::create([
-                "calificacion_1" => $request->calificacion_1
-            ]);
-
-            $cap = CAP::create([
-                "fk_calificacion" => $calificacion->id,
-                "fk_materia" => $request->idMateria,
-                "fk_profesor" => $request->idProfesor,
-                "fk_alumno" => $request->idAlumno,
-            ]);
-
+    
+        if (!$validacion->fails()) {
+            $calificacion = new Calificacion();
+            $calificacion->calificacion_1 = $request->calificacion_1;
+            $calificacion->calificacion_2 = $request->calificacion_2;
+            $calificacion->calificacion_3 = $request->calificacion_3;
+            $calificacion->save();
+    
+            $calificacion_profesor_alumno = new CAP();
+            $calificacion_profesor_alumno->fk_calificacion = $calificacion->id;
+            $calificacion_profesor_alumno->fk_materia = $request->fk_materia;
+            $calificacion_profesor_alumno->fk_profesor = $request->fk_profesor;
+            $calificacion_profesor_alumno->fk_alumno = $request->fk_alumno;
+            $calificacion_profesor_alumno->save();
+    
             return response()->json([
-                "Mensaje"=> "Calificacion subida exitosamente",
-            ],200);
+                "Status" => 201,
+                "Msg" => "Los datos se guardaron de forma exitosa",
+                "Data" => $calificacion
+            ], 201);
         }
-
+    
         return response()->json([
-            "errors"=> $validacion->errors(),
-        ],400);
+            "errors" => $validacion->errors(),
+        ], 400);
     }
+    
 
     public function ModificarCalificacion(int $cal){
         $validacion=Validator::make($request->all(),[

@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id', // 'id' is not mass assignable
         'nombre',
         'apellidoPaterno',
         'apellidoMaterno',
